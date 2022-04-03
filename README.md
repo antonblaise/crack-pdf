@@ -22,10 +22,10 @@ or
 ```
 
 # About this tool
-This tool uses [Hashcat](https://hashcat.net/hashcat/) and [John The Ripper](https://github.com/openwall/john) to crack an encrypted PDF as the user specifies the password character types and length
+This tool uses [Hashcat](https://hashcat.net/hashcat/) and [John The Ripper](https://github.com/openwall/john) to crack an encrypted PDF as the user specifies the password character types and length. Its performance solely depends on your hardware.
 - Numbers only
 - Alphanumeric (lowercase only)
 - Alphanumeric (uppercase only)
 - Alphanumeric (lower+upper cases)
 - All alphanumeric + Symbols (May take forever)
-Its performance solely depends on your hardware.
+
