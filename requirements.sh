@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 if [[ -z $(command -v hashcat) ]]
 then
