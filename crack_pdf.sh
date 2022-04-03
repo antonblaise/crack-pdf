@@ -74,21 +74,23 @@ do
 done
 
 pdf2john=${pdf2john[1]} # store tool in a variable for use
-"$pdf2john" "${file}" | sed 's/.*://' > "${file}.hash" # store useable (hashcat compatible) hash in a .hash file
-
-if [[ $(cat madrafin.pdf.hash) == " not encrypted!" ]] # if the PDF is not encrypted
-then
-  printf "\n${YELLOW}'${file}'${NC} is ${GREEN}NOT ENCRYPTED${NC}!\n\n"
-  rm "${file}.hash"
-  exit 1
-fi
+"$pdf2john" "${file}" | sed 's/.*://' > "${file}.hash" # store usable (hashcat compatible) hash in a .hash file
 
 if [[ "$file" != "${file%[[:space:]]*}" ]] # if the file name has space(s)
 then
   mv "$file".hash `echo $file | tr ' ' '_'`.hash # replace spaces with underscores and ceate the hash file with that name
   hashFile=`echo $file.hash | tr ' ' '_'` # store the hash file's name into a variable for use
+  # echo "SPACES"
 else
   hashFile="$file".hash
+  # echo "NO SPACE"
+fi
+
+if [[ $(cat ${hashFile}) == " not encrypted!" ]] # if the PDF is not encrypted
+then
+  printf "\n${YELLOW}'${file}'${NC} is ${GREEN}NOT ENCRYPTED${NC}!\n\n"
+  rm "${file}.hash"
+  exit 1
 fi
 
 
@@ -119,7 +121,7 @@ do
   fi
 done
 
-printf "\nHow many characters?\n"
+printf "\nHow many characters? (minimum is 6)\n"
 while true
 do
   printf ">> "
