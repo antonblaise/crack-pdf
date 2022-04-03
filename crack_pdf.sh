@@ -78,11 +78,11 @@ pdf2john=${pdf2john[1]} # store tool in a variable for use
 
 if [[ "$file" != "${file%[[:space:]]*}" ]] # if the file name has space(s)
 then
-  mv "$file".hash `echo $file | tr ' ' '_'`.hash # replace spaces with underscores and ceate the hash file with that name
-  hashFile=`echo $file.hash | tr ' ' '_'` # store the hash file's name into a variable for use
+  mv "$file".hash ./hash/`echo $file | tr ' ' '_'`.hash # replace spaces with underscores and ceate the hash file with that name
+  hashFile=./hash/`echo $file.hash | tr ' ' '_'` # store the hash file's name into a variable for use
   # echo "SPACES"
 else
-  hashFile="$file".hash
+  hashFile=./hash/"$file".hash
   # echo "NO SPACE"
 fi
 
@@ -126,7 +126,7 @@ while true
 do
   printf ">> "
   read passLength
-  if [ $passLength -eq $passLength 2>/dev/null ] && [ ! -z $passLength ]
+  if [ $passLength -eq $passLength 2>/dev/null ] && [ ! -z $passLength ] && [ $passLength -ge 6 ]
   then
     break
   fi
@@ -173,7 +173,7 @@ done
 
 characters="$custom$characters"
 
-hashcat_cmd="hashcat -a 3 -m 10700 ${hashFile} ${characters} -w 4 --hwmon-temp-abort 100 -O --session ${hashFile}.session"
+hashcat_cmd="hashcat -a 3 -m 10700 ${hashFile} ${characters} -w 4 --hwmon-temp-abort 100 -O --session '${file}'.session"
 
 
 # 4. Show and execute command
