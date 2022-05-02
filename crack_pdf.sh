@@ -89,7 +89,7 @@ fi
 if [[ $(cat ${hashFile}) == " not encrypted!" ]] # if the PDF is not encrypted
 then
   printf "\n${YELLOW}'${file}'${NC} is ${GREEN}NOT ENCRYPTED${NC}!\n\n"
-  rm "${file}.hash"
+  rm ${hashFile}
   exit 1
 fi
 
